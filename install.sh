@@ -7,3 +7,6 @@ echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86
 # https://github.com/NVIDIA/nvidia-container-runtime
 curl -sL https://nvidia.github.io/nvidia-container-runtime/gpgkey | apt-key add -
 curl -sL https://nvidia.github.io/nvidia-container-runtime/ubuntu20.04/nvidia-container-runtime.list > /etc/apt/sources.list.d/nvidia-container-runtime.list
+
+# https://www.mellanox.com/support/mlnx-ofed-public-repository
+# TODO
