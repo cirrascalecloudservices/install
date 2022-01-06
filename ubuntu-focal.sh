@@ -1,5 +1,7 @@
 #!/bin/sh -x
 
+echo 'cirrascale ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/cirrascale
+
 # https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html
 curl -sL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub | apt-key add -
 echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /" > /etc/apt/sources.list.d/cuda.list
