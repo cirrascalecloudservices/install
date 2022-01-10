@@ -1,5 +1,7 @@
 #!/bin/sh -x
 
+systemctl set-default multi-user.target
+
 echo 'cirrascale ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/cirrascale
 
 # https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html
