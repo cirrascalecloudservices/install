@@ -1,5 +1,5 @@
 #!/bin/sh
-# Usage: sudo sh -c "$(curl -sL https://raw.githubusercontent.com/cirrascalecloudservices/install/main/install-nvidia-cuda-11.5.1-495.sh)"
+# Usage: sudo sh -c "$(curl -sL https://raw.githubusercontent.com/cirrascalecloudservices/install/main/install-nvidia-cuda-11.5-495.sh)"
 # https://developer.nvidia.com/cuda-11-5-1-download-archive?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_local
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
 sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
