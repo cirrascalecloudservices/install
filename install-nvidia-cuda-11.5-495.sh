@@ -8,3 +8,5 @@ sudo dpkg -i cuda-repo-ubuntu2004-11-5-local_11.5.1-495.29.05-1_amd64.deb
 sudo apt-key add /var/cuda-repo-ubuntu2004-11-5-local/7fa2af80.pub
 sudo apt-get update
 sudo apt-get -y install cuda
+
+(cd /etc/profile.d && wget https://raw.githubusercontent.com/cirrascalecloudservices/install/main/etc/profile.d/cirrascale.sh)
