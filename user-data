@@ -1,0 +1,13 @@
+#cloud-config
+system_info:
+  default_user:
+    name: cirrascale
+ssh_authorized_keys:
+- gh:cirrascale
+runcmd:
+- ufw enable
+- ufw allow ssh
+- systemctl set-default multi-user.target
+
+# https://developer.nvidia.com/cuda-toolkit-archive
+- RUNFILE_URL=https://developer.download.nvidia.com/compute/cuda/11.6.0/local_installers/cuda_11.6.0_510.39.01_linux.run sh -c "$(curl https://raw.githubusercontent.com/cirrascalecloudservices/install/main/install-cuda-runfile.sh)"
