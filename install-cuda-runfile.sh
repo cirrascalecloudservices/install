@@ -1,7 +1,7 @@
 #!/bin/sh -ex
 
 rmmod nouveau
-apt install dkms
+apt install -y dkms
 systemctl set-default multi-user.target
 
 # https://developer.nvidia.com/cuda-toolkit-archive
