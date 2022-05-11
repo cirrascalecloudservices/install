@@ -15,9 +15,11 @@ fi
 
 if [ $CUDA_DRIVER ]; then
 	apt-get -y install cuda-drivers-$CUDA_DRIVER
+	if [ $CUDA_DRIVER_FABRICMANAGER ]; then
+		apt-get -y install cuda-drivers-fabricmanager-$CUDA_DRIVER
+		systemctl enable nvidia-fabricmanager
+	fi
 fi
-
-###TODO fabricmanager here
 
 if [ $CUDNN ]; then
 	apt-get -y install libcudnn8=$CUDNN && apt-mark hold libcudnn8
