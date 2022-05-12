@@ -4,9 +4,10 @@ systemctl set-default multi-user.target
 
 # https://developer.nvidia.com/cuda-toolkit-archive
 # https://forums.developer.nvidia.com/t/notice-cuda-linux-repository-key-rotation/212772
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin -O /etc/apt/preferences.d/cuda-repository-pin-600
-apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004-keyring.gpg
-add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+DISTRO=$(lsb_release -rs | sed 's/[^0-9]//')
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$DISTRO/x86_64/cuda-ubuntu$DISTRO.pin -O /etc/apt/preferences.d/cuda-repository-pin-600
+apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$DISTRO/x86_64/cuda-ubuntu$DISTRO-keyring.gpg
+add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu$DISTRO/x86_64/ /"
 apt-get update
 
 if [ $CUDA ]; then
