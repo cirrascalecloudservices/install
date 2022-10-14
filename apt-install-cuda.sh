@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh -ex
 
 systemctl set-default multi-user.target
 
