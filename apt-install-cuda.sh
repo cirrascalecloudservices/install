@@ -8,7 +8,7 @@ DISTRO=$(lsb_release -rs | sed 's/[^0-9]//')
 wget -q https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${DISTRO?}/x86_64/cuda-ubuntu$DISTRO.pin -O /etc/apt/preferences.d/cuda-repository-pin-600
 apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${DISTRO?}/x86_64/cuda-ubuntu$DISTRO-keyring.gpg
 add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${DISTRO?}/x86_64/ /"
-apt-get update
+#apt-get update
 
 if [ $CUDA ]; then
 	apt-get -y install cuda-toolkit-$CUDA
