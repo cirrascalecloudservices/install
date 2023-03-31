@@ -1,5 +1,7 @@
 #!/bin/bash -ex
 
+# sudo sh -c "$(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/main/install-cuda.sh)"
+
 . /etc/os-release
 
 systemctl set-default multi-user.target
