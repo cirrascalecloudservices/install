@@ -25,4 +25,8 @@ cd ${DOWNLOADS_PATH}/${APPS_SDK}/tools/qaic-pytools/
 ./install.sh
 
 # give user permissions for installed SDKs
-chown -R ${TARGET_USER}:${TARGET_USER} ${DOWNLOADS_PATH}/${PLATFORM_SDK} ${DOWNLOADS_PATH}/${PLATFORM_SDK} /opt/qti-aic/
+chown -R ${TARGET_USER}:${TARGET_USER} /opt/qti-aic/
+chown -R ${TARGET_USER}:${TARGET_USER} ${DOWNLOADS_PATH}/${PLATFORM_SDK}
+chown -R ${TARGET_USER}:${TARGET_USER} ${DOWNLOADS_PATH}/${PLATFORM_SDK_ZIP}
+chown -R ${TARGET_USER}:${TARGET_USER} ${DOWNLOADS_PATH}/${APPS_SDK}
+chown -R ${TARGET_USER}:${TARGET_USER} ${DOWNLOADS_PATH}/${APPS_SDK_ZIP}
