@@ -1,10 +1,10 @@
 #!/bin/bash -ex
 TARGET_USER=cirrascale
 DOWNLOADS_PATH=/home/${TARGET_USER}/
-PLATFORM_SDK_ZIP=qaic-platform-sdk-x86_64-deb-1.10.0.183.zip
-PLATFORM_SDK=qaic-platform-sdk-1.10.0.183
-APPS_SDK_ZIP=qaic-apps-1.10.0.183.zip
-APPS_SDK=qaic-apps-1.10.0.183
+PLATFORM_SDK_ZIP=qaic-platform-sdk-x86_64-deb-1.10.0.193.zip
+PLATFORM_SDK=qaic-platform-sdk-1.10.0.193
+APPS_SDK_ZIP=qaic-apps-1.10.0.193.zip
+APPS_SDK=qaic-apps-1.10.0.193
 
 # install platform SDK
 cd ${DOWNLOADS_PATH}
