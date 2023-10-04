@@ -34,3 +34,8 @@ cat > /etc/profile.d/cirrascale-cuda.sh << 'EOF'
 export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 EOF
+
+# prevent auto-upgrades from upgrading cuda and nvidia software
+sudo tee -a /etc/apt/apt.conf.d/50unattended-upgrades <<EOF
+Unattended-Upgrade::Package-Blacklist {"nvidia";"cuda";"libnvidia";"libcudnn";};  
+EOF
