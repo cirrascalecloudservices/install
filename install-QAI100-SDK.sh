@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 TARGET_USER=cirrascale
 DOWNLOADS_PATH=/home/${TARGET_USER}/
-QAIC_VERSION=1.11.0.112
+QAIC_VERSION=1.12.2.0
 PLATFORM_SDK_ZIP=qaic-platform-sdk-x86_64-deb-${QAIC_VERSION}.zip
 PLATFORM_SDK=qaic-platform-sdk-${QAIC_VERSION}
 APPS_SDK_ZIP=qaic-apps-${QAIC_VERSION}.zip
