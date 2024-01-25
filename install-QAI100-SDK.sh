@@ -8,11 +8,11 @@ APPS_SDK_ZIP=qaic-apps-${QAIC_VERSION}.zip
 APPS_SDK=qaic-apps-${QAIC_VERSION}
 
 # install platform SDK
-unzip ${DOWNLOADS_PATH}/${PLATFORM_SDK_ZIP}
+unzip ${DOWNLOADS_PATH}/${PLATFORM_SDK_ZIP} -d ${DOWNLOADS_PATH}
 cd ${DOWNLOADS_PATH}/${PLATFORM_SDK}/x86_64/deb/ && ./install.sh --auto_upgrade_sbl --ecc enable
 
 # install apps SDK
-unzip ${DOWNLOADS_PATH}/${APPS_SDK_ZIP}
+unzip ${DOWNLOADS_PATH}/${APPS_SDK_ZIP} -d ${DOWNLOADS_PATH}
 cd ${DOWNLOADS_PATH}/${APPS_SDK} && ./install.sh
 chmod a+x /opt/qti-aic/dev/hexagon_tools/bin/*
 chmod a+x /opt/qti-aic/exec/*
