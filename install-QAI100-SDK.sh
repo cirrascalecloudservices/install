@@ -1,7 +1,18 @@
 #!/bin/bash -ex
-TARGET_USER=cirrascale
+
+if [[ -z $TARGET_USER ]]; then
+  echo "TARGET_USER variable not set. Exiting..."
+  exit
+fi
+
+if [[ -z $QAIC_VERSION ]]; then
+  echo "QAIC_VERSION variable not set. Exiting..."
+  exit
+fi
+
+#TARGET_USER=cirrascale
+#QAIC_VERSION=1.12.2.0
 DOWNLOADS_PATH=/home/${TARGET_USER}/
-QAIC_VERSION=1.12.2.0
 PLATFORM_SDK_ZIP=qaic-platform-sdk-x86_64-deb-${QAIC_VERSION}.zip
 PLATFORM_SDK=qaic-platform-sdk-${QAIC_VERSION}
 APPS_SDK_ZIP=qaic-apps-${QAIC_VERSION}.zip
