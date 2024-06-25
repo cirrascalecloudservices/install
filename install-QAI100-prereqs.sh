@@ -15,6 +15,8 @@ apt-get install libncurses5 -y
 
 pip3 install --upgrade pip
 pip3 install wheel numpy opencv-python onnx
+python3.8 -m pip install --upgrade pip
+python3.8 -m pip install wheel numpy opencv-python onnx
 
 cat > /etc/profile.d/cirrascale-Qualcomm-AI100.sh << 'EOF'
 export LD_LIBRARY_PATH=“$LD_LIBRARY_PATH:/opt/qti-aic/dev/lib/x86_64” 
