@@ -11,17 +11,19 @@ arch=x86_64
 distro=ubuntu$(echo $VERSION_ID | tr -d .)
 
 # https://forums.developer.nvidia.com/t/notice-cuda-linux-repository-key-rotation/212772
-dpkg -i $(basename $(curl -s -w "%{url_effective}" https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-keyring_1.0-1_all.deb -O)) && apt-get update -y
+# https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#network-repo-installation-for-ubuntu
+dpkg -i $(basename $(curl -s -w "%{url_effective}" https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-keyring_1.1-1_all.deb -O)) && apt-get update -y
 
 if [ $CUDA ]; then
-	apt-get install cuda-toolkit-$CUDA -y
+	apt-get install cuda-toolkit-$CUDA -y && apt-mark hold cuda-toolkit-$CUDA
 fi
 
 if [ $CUDA_DRIVER ]; then
-	apt-get install cuda-drivers-$CUDA_DRIVER -y
 	if [ $CUDA_DRIVER_FABRICMANAGER ]; then
-		apt-get install cuda-drivers-fabricmanager-$CUDA_DRIVER -y
+		apt-get install cuda-drivers-fabricmanager-$CUDA_DRIVER -y && apt-mark hold cuda-drivers-fabricmanager-$CUDA_DRIVER
 		systemctl enable nvidia-fabricmanager
+	else
+		apt-get install cuda-drivers-$CUDA_DRIVER -y && apt-mark hold cuda-drivers-$CUDA_DRIVER
 	fi
 fi
 
