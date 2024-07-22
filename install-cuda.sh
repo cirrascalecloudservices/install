@@ -14,6 +14,9 @@ distro=ubuntu$(echo $VERSION_ID | tr -d .)
 # https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#network-repo-installation-for-ubuntu
 dpkg -i $(basename $(curl -s -w "%{url_effective}" https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-keyring_1.1-1_all.deb -O)) && apt-get update -y
 
+# install kernel headers
+apt-get install linux-headers-$(uname -r)
+
 if [ $CUDA ]; then
 	apt-get install cuda-toolkit-$CUDA -y && apt-mark hold cuda-toolkit-$CUDA
 fi
