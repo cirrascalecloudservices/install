@@ -18,20 +18,6 @@ pip3 install wheel numpy opencv-python onnx
 python3.8 -m pip install --upgrade pip
 python3.8 -m pip install wheel numpy opencv-python onnx
 
-cat > /etc/profile.d/cirrascale-Qualcomm-AI100.sh << 'EOF'
-export LD_LIBRARY_PATH=“$LD_LIBRARY_PATH:/opt/qti-aic/dev/lib/x86_64” 
-export PATH="/usr/local/bin:$PATH"
-export PATH="$PATH:/opt/qti-aic/tools:/opt/qti-aic/exec:/opt/qti-aic/scripts" 
-export QRAN_EXAMPLES="/opt/qti-aic/examples" 
-export PYTHONPATH="$PYTHONPATH:/opt/qti-aic/dev/lib/x86_64"
-export QAIC_APPS="/opt/qti-aic/examples/apps" 
-export QAIC_LIB="/opt/qti-aic/dev/lib/x86_64/libQAic.so" 
-export QAIC_COMPILER_LIB="/opt/qti-aic/dev/lib/x86_64/libQAicCompiler.so"
-# Apps SDK
-export AIC_COMPILER_LIB_DIR=/opt/qti-aic/dev/lib/x86_64/apps:/opt/qti-aic/dev/lib/x86_64/
-export AIC_COMPILER_TOOLS_DIR=/opt/qti-aic/dev/hexagon_tools/
-EOF
-
 # docker support
 apt install docker.io -y
 usermod -aG docker $TARGET_USER
