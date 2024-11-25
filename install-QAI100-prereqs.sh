@@ -21,3 +21,17 @@ python3.8 -m pip install wheel numpy opencv-python onnx pyudev
 # docker support
 apt install docker.io -y
 usermod -aG docker $TARGET_USER
+
+# Disable ACS on startup
+wget https://raw.githubusercontent.com/quic/cloud-ai-sdk/refs/heads/1.12/utils/multi-device/QAicChangeAcs.py -P /root/
+cat > /etc/systemd/system/qaic-disable-acs.service << 'EOF'
+[Unit]
+Description=Disable ACS on all the downstream ports (on the PCIe switch) that connect to AI 100 devices as well as PCIe switch downstream ports that connect to the PCIe switch onboard the AI 100 cards.
+
+[Service]
+ExecStart=sudo python3.8 /root/QAicChangeAcs.py all
+
+[Install]
+WantedBy=default.target
+EOF
+systemctl enable qaic-disable-acs.service
