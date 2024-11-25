@@ -14,9 +14,9 @@ apt-get install libstdc++6 -y
 apt-get install libncurses5 -y
 
 pip3 install --upgrade pip
-pip3 install wheel numpy opencv-python onnx
+pip3 install wheel numpy opencv-python onnx pyudev
 python3.8 -m pip install --upgrade pip
-python3.8 -m pip install wheel numpy opencv-python onnx
+python3.8 -m pip install wheel numpy opencv-python onnx pyudev
 
 # docker support
 apt install docker.io -y
