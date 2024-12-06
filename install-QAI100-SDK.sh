@@ -25,7 +25,7 @@ cd ${DOWNLOADS_PATH}/${PLATFORM_SDK}/${CPU_ARCH}/deb/ && ./install.sh --auto_upg
 
 # install apps SDK
 unzip ${DOWNLOADS_PATH}/${APPS_SDK_ZIP} -d ${DOWNLOADS_PATH}
-cd ${DOWNLOADS_PATH}/${APPS_SDK} && ./install.sh --enable-qaic-pytools
+cd ${DOWNLOADS_PATH}/${APPS_SDK}/${CPU_ARCH}/deb/ && ./install.sh --enable-qaic-pytools
 chmod a+x /opt/qti-aic/dev/hexagon_tools/bin/*
 chmod a+x /opt/qti-aic/exec/*
 
