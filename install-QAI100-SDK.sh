@@ -21,16 +21,13 @@ APPS_SDK=qaic-apps-${QAIC_VERSION}
 
 # install platform SDK
 unzip ${DOWNLOADS_PATH}/${PLATFORM_SDK_ZIP} -d ${DOWNLOADS_PATH}
-cd ${DOWNLOADS_PATH}/${PLATFORM_SDK}/${CPU_ARCH}/deb/ && ./install.sh --auto_upgrade_sbl --ecc enable
+cd ${DOWNLOADS_PATH}/${PLATFORM_SDK}/${CPU_ARCH}/deb/ && ./install.sh --auto_upgrade_sbl --ecc enable --setup_mdp all
 
 # install apps SDK
 unzip ${DOWNLOADS_PATH}/${APPS_SDK_ZIP} -d ${DOWNLOADS_PATH}
-cd ${DOWNLOADS_PATH}/${APPS_SDK} && ./install.sh
+cd ${DOWNLOADS_PATH}/${APPS_SDK} && ./install.sh --enable-qaic-pytools
 chmod a+x /opt/qti-aic/dev/hexagon_tools/bin/*
 chmod a+x /opt/qti-aic/exec/*
-
-# install qaic-pytools
-cd ${DOWNLOADS_PATH}/${APPS_SDK}/tools/qaic-pytools/ && ./install.sh
 
 # give user permissions for installed SDKs
 chown -R ${TARGET_USER}:${TARGET_USER} /opt/qti-aic/
@@ -47,12 +44,8 @@ cat > /etc/profile.d/cirrascale-Qualcomm-AI100.sh << 'EOF'
 export LD_LIBRARY_PATH=“$LD_LIBRARY_PATH:/opt/qti-aic/dev/lib/x86_64” 
 export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:/opt/qti-aic/tools:/opt/qti-aic/exec:/opt/qti-aic/scripts" 
-export QRAN_EXAMPLES="/opt/qti-aic/examples" 
-export PYTHONPATH="$PYTHONPATH:/opt/qti-aic/dev/lib/x86_64"
+export QAIC_EXAMPLES="/opt/qti-aic/examples" 
 export QAIC_APPS="/opt/qti-aic/examples/apps" 
 export QAIC_LIB="/opt/qti-aic/dev/lib/x86_64/libQAic.so" 
 export QAIC_COMPILER_LIB="/opt/qti-aic/dev/lib/x86_64/libQAicCompiler.so"
-# Apps SDK
-export AIC_COMPILER_LIB_DIR=/opt/qti-aic/dev/lib/x86_64/apps:/opt/qti-aic/dev/lib/x86_64/
-export AIC_COMPILER_TOOLS_DIR=/opt/qti-aic/dev/hexagon_tools/
 EOF
