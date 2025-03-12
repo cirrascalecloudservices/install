@@ -32,7 +32,7 @@ fi
 if [ $CUDA_DRIVER ]; then
 	apt install -y nvidia-driver-$CUDA_DRIVER-open nvidia-modprobe && apt-mark hold nvidia-driver-$CUDA_DRIVER-open
 else
-	$CUDA_DRIVER=$LATEST_CUDA_DRIVER
+	CUDA_DRIVER=$LATEST_CUDA_DRIVER
 	apt install -y nvidia-driver-$CUDA_DRIVER-open nvidia-modprobe && apt-mark hold nvidia-driver-$CUDA_DRIVER-open
 fi
 
