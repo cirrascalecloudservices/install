@@ -5,6 +5,10 @@
 
 . /etc/os-release
 
+echo GRUB_TIMEOUT=5 > /etc/default/grub.d/99-cirrascale.cfg
+echo GRUB_TIMEOUT_STYLE=menu >> /etc/default/grub.d/99-cirrascale.cfg
+update-grub
+
 # https://launchpad.net/ubuntu/+source/cloud-init
 
 if [ "$UBUNTU_CODENAME" = "focal" ]; then
