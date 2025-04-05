@@ -1,7 +1,7 @@
 #!/bin/sh -eux
 
-# usage: sh <(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/main/late-commands.sh)
-# cirrascale: ['curtin', 'in-target', '--', 'sh', '-c', 'sh <(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/main/late-commands.sh)']
+# late-commands:
+#  cirrascale: ['curtin', 'in-target', '--', 'sh', '-c', 'sh <(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/main/late-commands.sh)']
 
 . /etc/os-release
 
