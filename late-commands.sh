@@ -4,6 +4,8 @@
 
 . /etc/os-release
 
+systemctl set-default multi-user.target
+
 echo GRUB_TIMEOUT=5 > /etc/default/grub.d/99-cirrascale.cfg
 echo GRUB_TIMEOUT_STYLE=menu >> /etc/default/grub.d/99-cirrascale.cfg
 update-grub
