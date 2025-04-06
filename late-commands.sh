@@ -1,6 +1,6 @@
 #!/bin/sh -eux
 
-# usage: sh <(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/main/late-commands.sh)
+# usage: sh -c "$(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/main/late-commands.sh)"
 
 . /etc/os-release
 
