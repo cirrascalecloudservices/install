@@ -6,4 +6,4 @@ debconf_selections:
   {{endfor}}
 late_commands:
   maas: [wget, '--no-proxy', {{node_disable_pxe_url|escape.json}}, '--post-data', {{node_disable_pxe_data|escape.json}}, '-O', '/dev/null']
-  cirrascale: ['curtin', 'in-target', '--', 'sh', '-c', 'sh <(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/main/late-commands.sh)']
+  cirrascale: ['curtin', 'in-target', '--', 'sh', '-c', 'sh -c "$(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/main/late-commands.sh)"']
