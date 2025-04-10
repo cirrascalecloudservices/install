@@ -10,6 +10,8 @@ echo GRUB_TIMEOUT=5 > /etc/default/grub.d/99-cirrascale.cfg
 echo GRUB_TIMEOUT_STYLE=menu >> /etc/default/grub.d/99-cirrascale.cfg
 update-grub
 
+ln -s -f /usr/share/unattended-upgrades/20auto-upgrades-disabled /etc/apt/apt.conf.d
+
 # https://launchpad.net/ubuntu/+source/cloud-init
 if [ "$UBUNTU_CODENAME" = "focal" ]; then
 	apt-get install --allow-downgrades cloud-init=23.1.2-0ubuntu0~20.04.2 -y
