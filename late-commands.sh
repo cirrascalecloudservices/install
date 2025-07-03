@@ -20,6 +20,6 @@ if [ "$UBUNTU_CODENAME" = "jammy" ]; then
 	apt-get install --allow-downgrades cloud-init=23.1.2-0ubuntu0~22.04.1 -y
 fi
 if [ "$UBUNTU_CODENAME" = "noble" ]; then
-	echo > /etc/apt/sources.list
+	echo > /etc/apt/sources.list # https://discourse.maas.io/t/repositories-are-configured-multiple-times/10855
 	apt-get install --allow-downgrades cloud-init=24.1.3-0ubuntu3 -y
 fi
