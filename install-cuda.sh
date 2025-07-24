@@ -1,5 +1,5 @@
 #!/bin/bash -ex
-
+# Example: CUDA= CUDA_DRIVER= CUDNN= NCCL= USE_OPEN_DRIVER= sh -c "$(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/Test/install-cuda.sh)"
 # sudo sh -c "$(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/main/install-cuda.sh)"
 
 . /etc/os-release
@@ -28,18 +28,24 @@ else
 	apt-get install -y cuda-toolkit -y && apt-mark hold cuda-toolkit
 fi
 
-# install nvidia open driver
-if [ "$CUDA_DRIVER" ]; then
-	apt install -y nvidia-driver-$CUDA_DRIVER-open nvidia-modprobe && apt-mark hold nvidia-driver-$CUDA_DRIVER-open
-else
+# install nvidia driver
+if [ !"$CUDA_DRIVER" ]; then
 	CUDA_DRIVER=$LATEST_CUDA_DRIVER
-	apt install -y nvidia-driver-$CUDA_DRIVER-open nvidia-modprobe && apt-mark hold nvidia-driver-$CUDA_DRIVER-open
 fi
 
-# install fabricmanager for nvswitch systems
-if [ "$NVSWITCH_FOUND" ]; then
-		apt-get install -y nvidia-fabricmanager-$CUDA_DRIVER -y && apt-mark hold nvidia-fabricmanager-$CUDA_DRIVER
+if [ "$INSTALL_OPEN_DRIVER" ]; then
+	apt install -y nvidia-driver-$CUDA_DRIVER-open nvidia-modprobe && apt-mark hold nvidia-driver-$CUDA_DRIVER-open
+	if [ "$NVSWITCH_FOUND" ]; then
+			apt-get install -y nvidia-fabricmanager-$CUDA_DRIVER -y && apt-mark hold nvidia-fabricmanager-$CUDA_DRIVER
+			systemctl enable nvidia-fabricmanager.service --now
+	fi
+else
+	if [ "$NVSWITCH_FOUND" ]; then
+		apt-get install cuda-drivers-fabricmanager-$CUDA_DRIVER -y && apt-mark hold cuda-drivers-fabricmanager-$CUDA_DRIVER
 		systemctl enable nvidia-fabricmanager.service --now
+	else
+		apt-get install cuda-drivers-$CUDA_DRIVER -y && apt-mark hold cuda-drivers-$CUDA_DRIVER
+	fi
 fi
 
 # install nvlsm for Gen5 nvlink systems
