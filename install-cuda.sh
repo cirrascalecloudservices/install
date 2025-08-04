@@ -41,12 +41,12 @@ fi
 # if $INSTALL_OPEN_DRIVER not set, check if GPU is open driver compatible
 if [ -z "$INSTALL_OPEN_DRIVER" ]; then
 	apt install nvidia-driver-assistant -y
-	$INSTALL_OPEN_DRIVER=$(nvidia-driver-assistant | grep "nvidia-open")
+	INSTALL_OPEN_DRIVER=$(nvidia-driver-assistant | grep "nvidia-open")
 fi
 
 # install nvidia open driver, else install nvidia proprietary driver
 if [ -n "$INSTALL_OPEN_DRIVER" ]; then
-	apt install -y nvidia-driver-$CUDA_DRIVER-open nvidia-modprobe && apt-mark hold nvidia-driver-$CUDA_DRIVER-open
+	apt install -y nvidia-driver-$CUDA_DRIVER-open && apt-mark hold nvidia-driver-$CUDA_DRIVER-open
 	if [ -n "$NVSWITCH_FOUND" ]; then
 			apt-get install -y nvidia-fabricmanager-$CUDA_DRIVER -y && apt-mark hold nvidia-fabricmanager-$CUDA_DRIVER
 			systemctl enable nvidia-fabricmanager.service
