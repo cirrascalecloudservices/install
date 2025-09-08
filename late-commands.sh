@@ -14,10 +14,10 @@ ln -s /usr/share/unattended-upgrades/20auto-upgrades-disabled /etc/apt/apt.conf.
 
 # https://launchpad.net/ubuntu/+source/cloud-init
 if [ "$UBUNTU_CODENAME" = "focal" ]; then
-	apt-get install --allow-downgrades cloud-init=23.1.2-0ubuntu0~20.04.2 -y
+#	apt-get install --allow-downgrades cloud-init=23.1.2-0ubuntu0~20.04.2 -y
 fi
 if [ "$UBUNTU_CODENAME" = "jammy" ]; then
-	apt-get install --allow-downgrades cloud-init=23.1.2-0ubuntu0~22.04.1 -y
+#	apt-get install --allow-downgrades cloud-init=23.1.2-0ubuntu0~22.04.1 -y
 fi
 if [ "$UBUNTU_CODENAME" = "noble" ]; then
 	echo > /etc/apt/sources.list # https://discourse.maas.io/t/repositories-are-configured-multiple-times/10855
