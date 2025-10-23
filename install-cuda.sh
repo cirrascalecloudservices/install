@@ -47,7 +47,7 @@ fi
 
 # install nvidia open driver, else install nvidia proprietary driver
 if [ -n "$INSTALL_OPEN_DRIVER" ]; then
-	apt install -y nvidia-driver-$CUDA_DRIVER-open && apt-mark hold nvidia-driver-$CUDA_DRIVER-open
+	apt install -y nvidia-driver-$CUDA_DRIVER-server-open && apt-mark hold nvidia-driver-$CUDA_DRIVER-server-open
 	if [ -n "$NVSWITCH_FOUND" ]; then
 			apt-get install -y nvidia-fabricmanager-$CUDA_DRIVER && apt-mark hold nvidia-fabricmanager-$CUDA_DRIVER
 			systemctl enable nvidia-fabricmanager.service
