@@ -27,9 +27,10 @@ apt-get install -y linux-headers-$(uname -r)
 
 # install cuda library
 if [ -n "$CUDA" ]; then
-	apt-get install -y cuda-toolkit-$CUDA -y && apt-mark hold cuda-toolkit-$CUDA
+	apt-get install -y cuda-toolkit-$CUDA && apt-mark hold cuda-toolkit-$CUDA
+	CUDA_MAJOR_VERSION=$(echo ${CUDA%-*})
 else
-	apt-get install -y cuda-toolkit -y && apt-mark hold cuda-toolkit
+	apt-get install -y cuda-toolkit && apt-mark hold cuda-toolkit
 fi
 
 # install latest cuda driver if one not set
@@ -40,7 +41,7 @@ fi
 # setting $INSTALL_OPEN_DRIVER will force installing the open driver
 # if $INSTALL_OPEN_DRIVER not set, check if GPU is open driver compatible
 if [ -z "$INSTALL_OPEN_DRIVER" ]; then
-	apt install nvidia-driver-assistant -y
+	apt install -y nvidia-driver-assistant
 	INSTALL_OPEN_DRIVER=$(nvidia-driver-assistant | grep "nvidia-open")
 fi
 
@@ -48,28 +49,28 @@ fi
 if [ -n "$INSTALL_OPEN_DRIVER" ]; then
 	apt install -y nvidia-driver-$CUDA_DRIVER-open && apt-mark hold nvidia-driver-$CUDA_DRIVER-open
 	if [ -n "$NVSWITCH_FOUND" ]; then
-			apt-get install -y nvidia-fabricmanager-$CUDA_DRIVER -y && apt-mark hold nvidia-fabricmanager-$CUDA_DRIVER
+			apt-get install -y nvidia-fabricmanager-$CUDA_DRIVER && apt-mark hold nvidia-fabricmanager-$CUDA_DRIVER
 			systemctl enable nvidia-fabricmanager.service
 	fi
 else
 	if [ -n "$NVSWITCH_FOUND" ]; then
-		apt-get install cuda-drivers-fabricmanager-$CUDA_DRIVER -y && apt-mark hold cuda-drivers-fabricmanager-$CUDA_DRIVER
+		apt-get install -y cuda-drivers-fabricmanager-$CUDA_DRIVER && apt-mark hold cuda-drivers-fabricmanager-$CUDA_DRIVER
 		systemctl enable nvidia-fabricmanager.service
 	else
-		apt-get install cuda-drivers-$CUDA_DRIVER -y && apt-mark hold cuda-drivers-$CUDA_DRIVER
+		apt-get install -y cuda-drivers-$CUDA_DRIVER && apt-mark hold cuda-drivers-$CUDA_DRIVER
 	fi
 fi
 
 # install nvlsm for Gen5 nvlink systems
 if [ -n "$NVL5_FOUND" ]; then
-	apt-get install -y nvlsm -y && apt-mark hold nvlsm
+	apt-get install -y nvlsm && apt-mark hold nvlsm
 fi
 
 # install cudnn
-if [ -n "$CUDNN" ]; then
-	apt-get install -y libcudnn9-cuda-12=$CUDNN libcudnn9-dev-cuda-12=$CUDNN -y && apt-mark hold libcudnn9-cuda-12=$CUDNN libcudnn9-dev-cuda-12=$CUDNN
+if [ -n "$CUDNN" && -n "$CUDA_MAJOR_VERSION"]; then
+	apt-get install -y libcudnn9-cuda-${CUDA_MAJOR_VERSION}=$CUDNN libcudnn9-dev-cuda-${CUDA_MAJOR_VERSION}=$CUDNN && apt-mark hold libcudnn9-cuda-${CUDA_MAJOR_VERSION}=$CUDNN libcudnn9-dev-cuda-${CUDA_MAJOR_VERSION}=$CUDNN
 else
-	apt-get install -y libcudnn9-cuda-12 libcudnn9-dev-cuda-12 -y && apt-mark hold libcudnn9-cuda-12 libcudnn9-dev-cuda-12
+	apt-get install -y libcudnn9-cuda-13 libcudnn9-dev-cuda-13 && apt-mark hold libcudnn9-cuda-13 libcudnn9-dev-cuda-13
 fi
 
 # install nccl
