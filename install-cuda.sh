@@ -47,7 +47,14 @@ fi
 
 # install nvidia open driver, else install nvidia proprietary driver
 if [ -n "$INSTALL_OPEN_DRIVER" ]; then
-	apt install -y nvidia-driver-$CUDA_DRIVER-server-open && apt-mark hold nvidia-driver-$CUDA_DRIVER-server-open
+	# Drivers that end in "5" are the "open" driver type
+	# Drivers that end in "0" are the "server-open" driver type
+	if (( $CUDA_DRIVER % 10 == 0 )); then
+		OPEN_DRIVER_TYPE="server-open"
+	else
+		OPEN_DRIVER_TYPE="open"
+	fi
+	apt install -y nvidia-driver-$CUDA_DRIVER-$OPEN_DRIVER_TYPE && apt-mark hold nvidia-driver-$CUDA_DRIVER-$OPEN_DRIVER_TYPE
 	if [ -n "$NVSWITCH_FOUND" ]; then
 			apt-get install -y nvidia-fabricmanager-$CUDA_DRIVER && apt-mark hold nvidia-fabricmanager-$CUDA_DRIVER
 			systemctl enable nvidia-fabricmanager.service
@@ -81,6 +88,10 @@ else
 fi
 
 # enable persistence (keeps GPUs initialized)
+mkdir /etc/systemd/system/nvidia-persistenced.service.d/
+echo "[Service]
+ExecStart=
+ExecStart=/usr/bin/nvidia-persistenced --user nvidia-persistenced --persistence-mode --verbose" > /etc/systemd/system/nvidia-persistenced.service.d/override.conf
 systemctl enable nvidia-persistenced.service
 
 # load nvidia-peermem module (enables RDMA GPU support)
@@ -96,3 +107,18 @@ EOF
 tee -a /etc/apt/apt.conf.d/50unattended-upgrades <<EOF
 Unattended-Upgrade::Package-Blacklist {"nvidia";"cuda";"libnvidia";"libcudnn";"libnccl";"nvlsm";};  
 EOF
+
+# LOGGING
+LOG_FILE=/root/install-cuda_log.txt
+echo "arch: $arch" >> $LOG_FILE
+echo "distro: $distro" >> $LOG_FILE
+echo "LATEST_CUDA_DRIVER: $LATEST_CUDA_DRIVER" >> $LOG_FILE
+echo "NVSWITCH_FOUND: $NVSWITCH_FOUND" >> $LOG_FILE
+echo "NVL5_FOUND: $NVL5_FOUND" >> $LOG_FILE
+echo "CUDA: $CUDA" >> $LOG_FILE
+echo "CUDA_MAJOR_VERSION: $CUDA_MAJOR_VERSION" >> $LOG_FILE
+echo "CUDA_DRIVER: $CUDA_DRIVER" >> $LOG_FILE
+echo "INSTALL_OPEN_DRIVER: $INSTALL_OPEN_DRIVER" >> $LOG_FILE
+echo "OPEN_DRIVER_TYPE: $OPEN_DRIVER_TYPE" >> $LOG_FILE
+echo "CUDNN: $CUDNN" >> $LOG_FILE
+echo "NCCL: $NCCL" >> $LOG_FILE
