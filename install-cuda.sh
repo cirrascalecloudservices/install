@@ -49,7 +49,7 @@ fi
 if [ -n "$INSTALL_OPEN_DRIVER" ]; then
 	# Drivers that end in "5" are the "open" driver type
 	# Drivers that end in "0" are the "server-open" driver type
-	if (( $CUDA_DRIVER % 10 == 0 )); then
+	if [ $(($CUDA_DRIVER % 10)) -eq 0 ]; then
 		OPEN_DRIVER_TYPE="server-open"
 	else
 		OPEN_DRIVER_TYPE="open"
@@ -74,7 +74,7 @@ if [ -n "$NVL5_FOUND" ]; then
 fi
 
 # install cudnn
-if [ -n "$CUDNN" && -n "$CUDA_MAJOR_VERSION"]; then
+if [ -n "$CUDNN" -a -n "$CUDA_MAJOR_VERSION"]; then
 	apt-get install -y libcudnn9-cuda-${CUDA_MAJOR_VERSION}=$CUDNN libcudnn9-dev-cuda-${CUDA_MAJOR_VERSION}=$CUDNN && apt-mark hold libcudnn9-cuda-${CUDA_MAJOR_VERSION}=$CUDNN libcudnn9-dev-cuda-${CUDA_MAJOR_VERSION}=$CUDNN
 else
 	apt-get install -y libcudnn9-cuda-13 libcudnn9-dev-cuda-13 && apt-mark hold libcudnn9-cuda-13 libcudnn9-dev-cuda-13
