@@ -2,10 +2,11 @@
 # Example: CUDA= CUDA_DRIVER= CUDNN= NCCL= USE_OPEN_DRIVER= sh -c "$(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/Test/install-cuda.sh)"
 # sudo sh -c "$(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/main/install-cuda.sh)"
 
-# A100-HGX-nvswitch,H100/200-HGX-nvswitch,B200-HGX-SXM2(due to arch changes, nvswitch does not have its own pcie device)
-NVSWITCH_PCIE_IDS="10de:1af1|10de:22a3|10de:2901"
-# B200-HGX-SXM2
-NVL5_GPU_PCIE_IDS="10de:2901"
+# A100-HGX-nvswitch,H100/200-HGX-nvswitch,B200-HGX-SXM2,B300-HGX-SXM2
+# (due to blackwell arch changes, nvswitch does not have its own pcie device)
+NVSWITCH_PCIE_IDS="10de:1af1|10de:22a3|10de:2901|10de:3182"
+# B200-HGX-SXM2, B300-HGX-SXM2
+NVL5_GPU_PCIE_IDS="10de:2901|10de:3182"
 . /etc/os-release
 
 systemctl set-default multi-user.target
