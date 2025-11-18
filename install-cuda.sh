@@ -2,10 +2,10 @@
 # Example: CUDA= CUDA_DRIVER= CUDNN= NCCL= USE_OPEN_DRIVER= sh -c "$(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/Test/install-cuda.sh)"
 # sudo sh -c "$(curl -s https://raw.githubusercontent.com/cirrascalecloudservices/install/main/install-cuda.sh)"
 
-# A100-HGX-nvswitch,H100/200-HGX-nvswitch,B200-HGX-SXM2,B300-HGX-SXM2
+# A100-HGX-nvswitch,H100/200-HGX-nvswitch,B200-HGX-SXM,B300-HGX-SXM
 # (due to blackwell arch changes, nvswitch does not have its own pcie device)
 NVSWITCH_PCIE_IDS="10de:1af1|10de:22a3|10de:2901|10de:3182"
-# B200-HGX-SXM2, B300-HGX-SXM2
+# B200-HGX-SXM, B300-HGX-SXM
 NVL5_GPU_PCIE_IDS="10de:2901|10de:3182"
 . /etc/os-release
 
@@ -72,6 +72,14 @@ fi
 # install nvlsm for Gen5 nvlink systems
 if [ -n "$NVL5_FOUND" ]; then
 	apt-get install -y nvlsm && apt-mark hold nvlsm
+	# Gen5 nvlink systems require infiniband-diags tools to be installed
+	# install infiniband-diags if not already installed and load required module
+	# this should not be installed if mlnx_ofed or doca-ofed packages are installed
+	IBDIAGS_MISSING=$(command -v ibstat)
+	if [ -z "$IBDIAGS_MISSING"  ];then
+		apt install -y infiniband-diags
+		echo "ib_umad" | tee -a /etc/modules
+	fi
 fi
 
 # install cudnn
@@ -116,6 +124,7 @@ echo "distro: $distro" >> $LOG_FILE
 echo "LATEST_CUDA_DRIVER: $LATEST_CUDA_DRIVER" >> $LOG_FILE
 echo "NVSWITCH_FOUND: $NVSWITCH_FOUND" >> $LOG_FILE
 echo "NVL5_FOUND: $NVL5_FOUND" >> $LOG_FILE
+echo "IBDIAGS_MISSING: $IBDIAGS_MISSING" >> $LOG_FILE
 echo "CUDA: $CUDA" >> $LOG_FILE
 echo "CUDA_MAJOR_VERSION: $CUDA_MAJOR_VERSION" >> $LOG_FILE
 echo "CUDA_DRIVER: $CUDA_DRIVER" >> $LOG_FILE
