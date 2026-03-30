@@ -19,20 +19,11 @@ LATEST_CUDA_DRIVER=$(curl -s https://developer.download.nvidia.com/compute/cuda/
 NVSWITCH_FOUND=$(lspci -nn | grep -E "($NVSWITCH_PCIE_IDS)")
 NVL5_FOUND=$(lspci -nn | grep -E "($NVL5_GPU_PCIE_IDS)")
 
-# https://forums.developer.nvidia.com/t/notice-cuda-linux-repository-key-rotation/212772
-# https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#network-repo-installation-for-ubuntu
+# nvidia apt repo install
 dpkg -i $(basename $(curl -s -w "%{url_effective}" https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-keyring_1.1-1_all.deb -O)) && apt-get update -y
 
 # install kernel headers
 apt-get install -y linux-headers-$(uname -r)
-
-# install cuda library
-if [ -n "$CUDA" ]; then
-	apt-get install -y cuda-toolkit-$CUDA && apt-mark hold cuda-toolkit-$CUDA
-	CUDA_MAJOR_VERSION=$(echo ${CUDA%-*})
-else
-	apt-get install -y cuda-toolkit && apt-mark hold cuda-toolkit
-fi
 
 # install latest cuda driver if one not set
 if [ -z "$CUDA_DRIVER" ]; then
@@ -52,6 +43,7 @@ if [ -n "$INSTALL_OPEN_DRIVER" ]; then
 	# Drivers that end in "0" are the "server-open" driver type
 	if [ $(($CUDA_DRIVER % 10)) -eq 0 ]; then
 		OPEN_DRIVER_TYPE="server-open"
+		apt-get install -y nvidia-driver-pinning-${CUDA_DRIVER}
 	else
 		OPEN_DRIVER_TYPE="open"
 	fi
@@ -80,6 +72,14 @@ if [ -n "$NVL5_FOUND" ]; then
 		apt install -y infiniband-diags
 		echo "ib_umad" | tee -a /etc/modules
 	fi
+fi
+
+# install cuda library
+if [ -n "$CUDA" ]; then
+	apt-get install -y cuda-toolkit-$CUDA && apt-mark hold cuda-toolkit-$CUDA
+	CUDA_MAJOR_VERSION=$(echo ${CUDA%-*})
+else
+	apt-get install -y cuda-toolkit && apt-mark hold cuda-toolkit
 fi
 
 # install cudnn
