@@ -97,7 +97,7 @@ else
 fi
 
 # enable persistence (keeps GPUs initialized)
-mkdir /etc/systemd/system/nvidia-persistenced.service.d/
+mkdir -p /etc/systemd/system/nvidia-persistenced.service.d/
 echo "[Service]
 ExecStart=
 ExecStart=/usr/bin/nvidia-persistenced --user nvidia-persistenced --persistence-mode --verbose" > /etc/systemd/system/nvidia-persistenced.service.d/override.conf
