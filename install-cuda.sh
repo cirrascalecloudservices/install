@@ -15,7 +15,7 @@ systemctl set-default multi-user.target
 arch=$(uname -m)
 distro=ubuntu$(echo $VERSION_ID | tr -d .)
 
-LATEST_CUDA_DRIVER=$(curl -s https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/ | grep -oP 'nvidia-driver-\K[0-9]+' | sort -n | tail -n 1)
+LATEST_CUDA_DRIVER=$(curl -s https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/ | grep -oP 'nvidia-driver[-|_]\K[0-9]+' | sort -n | tail -n 1)
 NVSWITCH_FOUND=$(lspci -nn | grep -E "($NVSWITCH_PCIE_IDS)")
 NVL5_FOUND=$(lspci -nn | grep -E "($NVL5_GPU_PCIE_IDS)")
 
