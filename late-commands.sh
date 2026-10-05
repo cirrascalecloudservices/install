@@ -16,3 +16,5 @@ ln -s /usr/share/unattended-upgrades/20auto-upgrades-disabled /etc/apt/apt.conf.
 if [ "$UBUNTU_CODENAME" = "noble" ]; then
 	echo > /etc/apt/sources.list
 fi
+
+rm -f /etc/apt/apt.conf.d/90curtin-aptproxy
